@@ -1,0 +1,43 @@
+.custom-nav-button {
+  position: relative;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: none;
+  background-color: transparent;
+  color: black;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.custom-nav-button::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  background-color: #fde047; /* A bright yellow for the underline */
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
+
+.custom-nav-button:hover::before,
+.custom-nav-button.custom-active::before {
+  width: 80%;
+}
+
+.custom-nav-button:hover {
+  transform: translateY(-3px);
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.custom-nav-button.custom-active {
+  color: #fde047; /* Bright yellow for active link text */
+  transform: translateY(-3px);
+}
+

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
 const PRIORITY_OPTIONS = [
   { label: 'High', value: 'high', color: 'red' },
@@ -8,15 +9,7 @@ const PRIORITY_OPTIONS = [
 
 export default function TaskManager() {
   // State
-  const [tasks, setTasks] = useState(() => {
-    try {
-      const savedTasks = localStorage.getItem('tasks');
-      return savedTasks ? JSON.parse(savedTasks) : [];
-    } catch (error) {
-      console.error("Error parsing tasks from localStorage", error);
-      return [];
-    }
-  });
+  const [tasks, setTasks] = useLocalStorage('tasks', []);
   const [newTaskText, setNewTaskText] = useState('');
   const [newTaskDue, setNewTaskDue] = useState('');
   const [newTaskPriority, setNewTaskPriority] = useState('medium');
@@ -99,13 +92,6 @@ export default function TaskManager() {
   const activeCount = tasks.filter((t) => !t.completed).length;
   const completedCount = tasks.filter((t) => t.completed).length;
 
-  useEffect(() => {
-    try {
-      localStorage.setItem('tasks', JSON.stringify(tasks));
-    } catch (error) {
-      console.error("Error saving tasks to localStorage", error);
-    }
-  }, [tasks]);
 
   return (
     <div className="task-manager-container">
